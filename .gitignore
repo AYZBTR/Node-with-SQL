@@ -1,0 +1,38 @@
+# Node.js dependencies
+node_modules/
+
+# Environment files
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Database credentials or sensitive config files
+config.json
+db-config.js
+
+# IDE or editor-specific files
+.vscode/
+.idea/
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+
+# Miscellaneous
+*.bak
+*.tmp
+*.temp
+
+# Ignore MySQL dumps or data files (if any)
+*.sql
+*.db
+*.sqlite
