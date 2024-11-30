@@ -18,6 +18,7 @@ const connection = mysql.createConnection({
   password: process.env.DB_PASSWORD,
 });
 
+
 // A simple query
  try {
     connection.query("SHOW TABLES", (err, result) => {
