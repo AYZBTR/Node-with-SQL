@@ -1,4 +1,4 @@
-const { faker } = require('@faker-js/faker'); 
+const { faker } = require('@faker-js/faker');
 const mysql = require('mysql2');
 // Load environment variables from .env file
 require('dotenv').config();
@@ -11,18 +11,34 @@ const connection = mysql.createConnection({
   password: process.env.DB_PASSWORD,
 });
 
+let getRandomUser = () => {
+  return [
+    faker.string.uuid(),
+    faker.internet.username(),
+    faker.internet.email(),
+    faker.internet.password()
+  ];
+};
 
 // A simple query
- try {
-    connection.query("SHOW TABLES", (err, result) => {
-        if (err) throw err;
-        console.log(result);
-    });
-} catch (err) {
-    console.log(err);
+// Inserting new data
+let query = "INSERT INTO user (id, username, email, password) VALUES ?";
+
+let data = [];
+for(let i=1; i<=100; i++){
+  data.push(getRandomUser()); //100 fake users...
 }
- 
-connection.end();
+
+ try {
+  connection.query(query, [data], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+  });
+} catch (err) {
+  console.log(err);
+}
+
+connection.end(); 
 
 
 
