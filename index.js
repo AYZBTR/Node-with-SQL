@@ -46,7 +46,7 @@ for(let i=1; i<=100; i++){
 
 /* connection.end();   */
 
-
+//Home ROUTE.....
 app.get("/", (req,res)=>{
   let q = "SELECT count(*) FROM user";
   try {
@@ -60,7 +60,28 @@ app.get("/", (req,res)=>{
     res.send("Database error!")
   }
   
-})
+});
+
+//GET /user --> Fetch and show (userid, username, email) of all users!
+app.get("/user", (req, res)=>{
+  let q = "SELECT * FROM user";
+  try {
+    connection.query(q, (err, users)=>{
+      if (err) throw err;
+      res.render("showusers.ejs", {users})
+    });
+  }catch (err){
+    console.log(err);
+    res.send("Database error!")
+  }
+
+});
+
+
+
+
+
+
 
 app.listen("8080", ()=>{
   console.log("Server is listening to port 8080")
