@@ -77,9 +77,28 @@ app.get("/user", (req, res)=>{
 
 });
 
+//Edit route. This route is created in 2 different ways:
+//1. GET /user/:id/edit --> To get form to edit the username, based on id. This form will require password.
+// 2. PATCH /user/:id  --> To edit username, if correct password was entered in form.
 
+//Edit route:
+app.get("/user/:id/edit", (req,res)=>{
+  let {id} = req.params;
+  let q = `SELECT * FROM user WHERE id= '${id}'`;
+  try {
+    connection.query(q, (err, result)=>{
+      if (err) throw err;
+      let user = result[0];
+      res.render("edit.ejs", { user });
+    });
+  }catch (err){
+    console.log(err);
+    res.send("Database error!")
+  }
+  
+});
 
-
+//PATCH Request
 
 
 
