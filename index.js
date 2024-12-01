@@ -6,7 +6,7 @@ const path = require("path");
 // Load environment variables from .env file
 require('dotenv').config();
 app.set("view engine", "ejs")
-app.use("views", path.join(__dirname, "/views"));
+app.set("views", path.join(__dirname, "/views"));
 
 // Create the connection to the database using environment variables
 const connection = mysql.createConnection({
@@ -52,12 +52,12 @@ app.get("/", (req,res)=>{
   try {
     connection.query(q, (err, result) => {
       if (err) throw err;
-      console.log(result[0]["count(*)"]);
-      res.send("success");
+      let count = result[0]["count(*)"];
+      res.render("home.ejs", {count});
     });
   } catch (err) {
     console.log(err);
-    res.send("Error in Database")
+    res.send("Database error!")
   }
   
 })
